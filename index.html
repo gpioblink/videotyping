@@ -25,9 +25,9 @@
         </div>
         <div class="row">
             <div id="play-controls" class="float" style="width: 740px;">
-                <button type="button" id="resetButton" class="btn btn-link float-right">Reset</button>
-                <button type="button" id="pauseButton" class="btn btn-link float-right">Pause</button>
-                <button type="button" id="playButton" class="btn btn-link float-right">Play</button>
+                <button type="button" id="initButton" class="btn btn-link float-right" onclick="vplayer.changeCaptionTrack('dub')">Init</button>
+                <button type="button" id="stopButton" class="btn btn-link float-right" onclick="vplayer.stopVideo()">Stop</button>
+                <button type="button" id="playButton" class="btn btn-link float-right" onclick="vplayer.playVideo()">Play</button>
             </div>
         </div>
     </div>
@@ -125,6 +125,7 @@
                                 this.loopCount++;
                                 this.player.stopVideo();
                                 this.player.playVideo(this.solvings[i-1].startTime + 0.03);
+                                console.log("start from "+ this.solvings[i-1].startTime + 0.03);
                                 return;
                             }
                         } 
@@ -196,9 +197,12 @@
                 console.log(trackEl);
                 console.log(this.player.textTracks());
                 this.player.textTracks()[0].mode = 'hidden';
-                this.player.ready(function(){
+                /*this.player.ready(function(){
                     player.typingGame.initCaptions();
-                });
+                });*/
+                setTimeout(function(){
+                    player.typingGame.initCaptions();
+                },1000);
             }
 
             getCaptionArray() {
