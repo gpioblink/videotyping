@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <link href="https://vjs.zencdn.net/7.4.1/video-js.css" rel="stylesheet">
+        <title>VideoTyping</title>
+    </head>
+    <body>
+        <video id="player">
+            <source src="testdub.mp4" type="video/mp4">
+            <track src="testscript.vtt" kind="captions" srclang="en" label="English" default>
+        </video>
+        <div ></div>
+    </body>
+    <script>
+        (function(){
+
+            var video = document.querySelector('video#player');
+            var span1 = document.querySelector('div#eric > div :first-child');
+            var span2 = document.querySelector('div#eric > div :last-of-type');
+            
+            if (!video.textTracks) return;
+            
+            var track = video.textTracks[0];
+            track.mode = TextTrack.HIDDEN;
+            
+            var idx = 0;
+            
+            track.oncuechange = function(e) {
+            
+            var cue = this.activeCues[0];
+            if (cue) {
+                if (idx == 0) {
+                span2.className = '';
+                span1.classList.remove('on');
+                span1.innerHTML = '';
+                span1.appendChild(cue.getCueAsHTML());
+                span1.classList.add('on');
+                } else {
+                span1.className = '';
+                span2.classList.remove('on');
+                span2.innerHTML = '';
+                span2.appendChild(cue.getCueAsHTML());
+                span2.classList.add('on');
+                }
+            
+                idx = ++idx % 2;
+            }
+            
+            };
+            
+            })();
+</script>
+</html>
